@@ -19,33 +19,33 @@ public class A5 {
         Scanner in = new Scanner(System.in);
         int right = 0;
         int wrong = 0;
+        int jerk = 0;
         //starting the game
         System.out.println("hello welcome to hangman");
         System.out.println("player one please enter in a word that is 8 letters or less");
         //creating two strings one of which we will hide in the next step
         String word = in.nextLine();
+        //creating a new stringbuilder
+        StringBuilder nathan = new StringBuilder(word);
         int length = word.length();
         String unhidden = word;
-
         //replacing the letters in the word with dashes
-        for (int i = 0; i < word.length(); i++) {
-            String temp = word.substring(i, i + 1);
-            char temp1 = temp.charAt(0);
-
-            word = word.replace(temp1, '-');
+        for (int i = 0; i < word.length();) {
+            nathan.setCharAt(i, '-');
+            i++;
         }
-        //cleaing the screen
+        //clearing the screen
         for (int i = 0; i < 25; i++) {
             System.out.println("");
         }
         //telling them off for using a word that is too long
         if (length > 8) {
             System.out.println("Don't be a jerk its not fair to use really long words.");
+            jerk++;
         }
-        //creating a new stringbuilder
-        StringBuilder nathan = new StringBuilder(word);
+
         //start of the game
-        while ((wrong < 5) && (right < length)) {
+        while ((wrong < 5) && (right < length) && (jerk < 1)) {
             int q = 0;
             // showing the start of the gallows
             if (wrong == 0) {
@@ -61,11 +61,12 @@ public class A5 {
             System.out.println("Please enter your guess");
             //next letter typed is your guess
             String guess = in.nextLine();
+            guess = guess.toLowerCase();
             char gues = guess.charAt(0);
-
             //comparing guess against each letter in the word and if it correct replace the dash with the letter
             for (int i = 0; i < length;) {
                 char letter = unhidden.charAt(i);
+
                 if (gues == letter) {
                     System.out.println("Congrats you guessed one right.");
                     right++;
